@@ -122,7 +122,6 @@ export default {
         // cb是一个回调函数必须要调用，参数的值会显示在下拉框中。
         // cb调用时候必须要接受一个数组，数组中的元素必须是一个对象，对象中必须有value属性
         queryDepartSearch(value, cb){
-
             if(!value){
                 // 传递空数组不会出现下拉框
                 cb([]);
