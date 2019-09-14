@@ -25,17 +25,23 @@ export default {
   */
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    'assets/main.css'
+    'assets/main.css',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    // 富文本的插件
+    { src: '~plugins/nuxt-quill-plugin.js', ssr: false },
     '@/plugins/element-ui',
     // axios的拦截插件
     '@/plugins/axios',
     //  本地存储的插件
-    { src: '@/plugins/localStorage.js', ssr: false }
+    { src: '@/plugins/localStorage.js', ssr: false },
+    
   ],
   /*
   ** Nuxt.js dev-modules

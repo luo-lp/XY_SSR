@@ -1,12 +1,17 @@
 <template>
-  <div class="publish">
-      <!-- 头部 -->
+<div class="publish">
+<el-row :gutter="20">
+  <el-col :span="16">
+     <!-- 头部 -->
       <h2>发表新攻略</h2>
-      <p>分享你的个人游记，让更多人看到哦！</p>
-      <el-input v-model="input" placeholder="请输入内容"></el-input>
+      <p class="wenzi">分享你的个人游记，让更多人看到哦！</p>
+      <el-input v-model="input" placeholder="请输入内容" class="titlinput"></el-input>
       <!-- 富文本框 -->
+   <div id="app" class="container">
+       <VueEditor :config="config" ref="vueEditor" />
+  </div>
       <!-- 底部城市框 -->
-      选择城市：
+      <span>选择城市：</span> 
        <el-autocomplete
       class="inline-input"
       v-model="playCity"
@@ -18,15 +23,38 @@
     ></el-autocomplete>
     <!-- 发布按钮 -->
     <div class="buttons">
-        <el-button type="success" round>发布</el-button>
-    <el-button type="primary" round>保存到草稿</el-button>
+     <el-button type="success" round @click="tijiao">发布</el-button>
+    <el-button type="primary" @click="draft" round>保存到草稿</el-button>
     </div>
-  
+  </el-col>
+  <el-col :span="8"  >
+   <div class="draft">
+    <p>草稿箱({{caogao.length}})</p>
+    <div
+    v-for="(item,index) in caogao " :key="index"
+    class="lishi"
+    >
+    <span
+     @click="draftchange(item)" type="text">{{item.title}} <i class="el-icon-edit"></i>
+     </span>
+     <p>{{item.time}}</p>
+    </div>
+   </div>
+   </el-col>
+</el-row>
   </div>
 </template>
 
 <script>
+// 需要单独引入样式
+import "quill/dist/quill.snow.css"
+import moment from "moment";
+let VueEditor;
+if (process.browser) {
+    VueEditor = require('vue-word-editor').default
+}
 export default {
+  name: 'app',
     data(){
         return{
             input:'',
@@ -35,13 +63,68 @@ export default {
             // 选中的城市id
             playCityid:'',
             // 后台给你的城市列表数据
-            citydata:[]
+            citydata:[],
+            // 草稿箱数组
+            caogao:[],
             
+      config: {
+        modules: { 
+          // 工具栏
+          toolbar: [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote', 'code-block'],
+            ['image', 'video'],
+
+            [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+            [{ 'direction': 'rtl' }],                         // text direction
+          ]
+        },
+        // 主题
+        theme: 'snow',
+        uploadImage: {
+          url: "http://localhost:1337/upload",
+          name: "files",
+          uploadBefore(file){
+            return true
+          },
+          uploadProgress(res){
+
+          },
+          uploadSuccess(res, insert){
+            insert("http://localhost:1337" + res.data[0].url)
+          },
+          uploadError(){},
+          showProgress: true
+        },
+
+        uploadVideo: {
+          //url: "http://157.122.54.189:9095/upload",
+          url: "http://localhost:1337/upload",
+          name: "files",
+          uploadBefore(file){
+            return true
+          },
+          uploadProgress(res){
+
+          },
+          uploadSuccess(res, insert){
+            insert("http://localhost:1337" + res.data[0].url)
+          },
+          uploadError(){},
+        }
+      }
         }
     },
+    components: {
+    VueEditor
+  },
     methods: {
     // 搜索建议
        async queryDestSearch(value,cb){
+         this.citydata=[]
         //    输入不为空
            if(value===''){
                return
@@ -53,9 +136,8 @@ export default {
                     name: value
                 }
             })
-            this.citydata=hh.data.data
-             console.log(hh);
-             // 添加一个value属性进去返回的数据，并赋值给建议城市
+            console.log(111,hh.data.data);
+             // 给数组里面的每个对象元素添加一个value属性进去，并赋值给建议城市，并返回新的数组，
             hh.data.data.map((item,index)=>{
               this.citydata.push(
                  Object.assign(item,{value:item.name})
@@ -78,18 +160,117 @@ export default {
             this.playCity = this.playCity ? this.citydata[0].value :"";
             this.playCityid= this.playCity ? this.citydata[0].id :"";  
         },
-    },
-    
+      // 提交文章
+       async tijiao(){
+        let hh=await this.$axios({
+          url:'/posts',
+          method:'post',
+          headers: {
+          Authorization: `Bearer ${this.$store.state.user.userInfo.token}`
+         },
+          data:{
+            title:this.input,
+            city:this.playCityid,
+            content:this.$refs.vueEditor.editor.root.innerHTML
+          }
+        })
+        // 返回新增成功时
+        if (hh.status===200){
+          this.$message({
+          showClose: true,
+          message: hh.data.message,
+          type: 'success'
+        });
+            // 标题
+            this.input='',
+            // 选中的游玩城市
+            this.playCity='',
+            // 文本框内容
+            this.$refs.vueEditor.editor.root.innerHTML=''
+        }
+        },
 
+        // 保存草稿
+        draft(){
+          let time= moment(new Date()).format(`YYYY-MM-DD`);
+          let data=[{
+            title:this.input,
+            cityName:this.playCity,
+            content:this.$refs.vueEditor.editor.root.innerHTML,
+            time
+          }]
+          // 从本地获取数据
+            let str = localStorage.getItem('posts') || "[]";
+            let arr = JSON.parse(str);
+            if (arr.length!=0){
+        this.caogao.push(data[0])
+        localStorage.setItem('posts',JSON.stringify(this.caogao))
+            }else{
+        this.caogao=data
+        localStorage.setItem('posts',JSON.stringify(this.caogao))
+            }
+            console.log(this.caogao);
+        },
 
+      /* 编辑草稿   */
+        draftchange(hh){
+          this.input=hh.title,
+            // 选中的游玩城市
+            this.playCity=hh.cityName,
+            // 后台给你的城市列表数据
+            this.$refs.vueEditor.editor.root.innerHTML=hh.content
+        }
+},
+mounted(){
+  // 文本框设置样式
+this.$refs.vueEditor.editor.root.style='min-height:400px;max-height:400px;overflow-y:auto;'
+// 从本地获取数据
+            let str = localStorage.getItem('posts') || "[]";
+            let arr = JSON.parse(str);
+            this.caogao=arr
+}
 }
 </script>
 
 <style lang="less" scoped>
 .publish{
-    width: 750px;
+    width: 1000px;
+    h2{
+    font-weight: 400;
+    font-size: 22px;
+    margin-bottom: 10px;
+    }
+    .wenzi{
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+    }
     .buttons{
         margin: 20px 0;
 }
+.container {
+  margin: 0 auto;
+  padding: 20px 0;
+  .hh {
+    min-height: 400px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
 }
+}
+.draft{
+    border: 1px solid #ddd;
+    padding: 10px;
+    width: 200px;
+    margin-left: 10px;
+  .lishi{
+  padding: 5px 0px;
+  span:hover{
+    color: aqua;
+    cursor:pointer;
+  }
+}
+  }
+
 </style>
