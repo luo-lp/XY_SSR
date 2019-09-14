@@ -11,10 +11,10 @@ export default {
 
         }
     },
+    // 组件注册
     components:{
         publish
     }
-
 }
 </script>
 
@@ -23,6 +23,5 @@ export default {
     width: 1000px;
     margin: 0 auto;
     padding: 20px 0;
-
 }
 </style>
