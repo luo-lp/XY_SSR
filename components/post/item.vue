@@ -48,7 +48,7 @@ export default {
 };
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .digui-item {
   border: 1px solid #dddddd;
   padding: 10px;

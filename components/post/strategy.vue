@@ -2,7 +2,7 @@
   <div class="container">
       <div class="title">
         <h2>推荐攻略</h2>
-        <el-button type="primary" icon="el-icon-edit" class="youji">写游记</el-button>
+        <el-button type="primary" icon="el-icon-edit" class="youji"><nuxt-link to="/post/create">写游记</nuxt-link></el-button>
       </div>
 
 

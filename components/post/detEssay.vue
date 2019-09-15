@@ -59,7 +59,7 @@ export default {
 };
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .detEssay {
   padding-top: 30px;
   h1 {

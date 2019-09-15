@@ -55,7 +55,7 @@ export default {
 </script>
 
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .det_right {
   padding-left: 15px;
   .bottom {

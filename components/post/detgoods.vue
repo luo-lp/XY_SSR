@@ -76,7 +76,7 @@ export default {
 };
 </script>
 
-<style lang="less" scope>
+<style lang="less" scoped>
 .good {
   margin: 55px 0;
   span {
