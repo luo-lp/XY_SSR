@@ -1,7 +1,9 @@
 <template>
   <div class="det_right">
     <h3>相关攻略</h3>
-    <nuxt-link :to="`/post/detail?id=${item.id}`" v-for="(item, index) in recHtml" :key="index" class="bottom" @click="linkTo(item.id)">
+    
+    <div v-for="(item, index) in recHtml" :key="index" class="bottom">
+      <nuxt-link v-if="item" :to="`/post/detail?id=${item.id}`" @click="linkTo(item.id)">
       <el-col :span="10">
         <img :src="item.images[0]" alt />
       </el-col>
@@ -10,6 +12,7 @@
         <span>{{ item.updated_at }}阅读:{{item.watch}}</span>
       </el-col>
     </nuxt-link>
+    </div>
   </div>
 </template>
 

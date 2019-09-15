@@ -72,6 +72,11 @@ export default {
       width: 56px;
       margin: 20px 0;
     }
+    a{
+      img{
+        width: 100%;
+      }
+    }
     span {
       img {
         display: block;

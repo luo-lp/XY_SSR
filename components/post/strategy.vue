@@ -10,7 +10,7 @@
       v-for="(item,index) in content"
       :key="index"
       >
-        <a href="#" class="firstline">{{item.title}}</a>
+        <nuxt-link :to="`/post/detail?id=${item.id}`" class="firstline">{{item.title}}</nuxt-link>
         <br>
             
         <p href="#" class="content"
