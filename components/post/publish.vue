@@ -5,7 +5,7 @@
       <p class="wenzi">分享你的个人游记，让更多人看到哦！</p>
       <el-input v-model="input" placeholder="请输入内容" class="titlinput"></el-input>
       <!-- 富文本框 -->
-   <div id="app" class="container">
+   <div id="app" class="containeraaa">
        <VueEditor :config="config" ref="vueEditor" @blur="onEditorBlur($event)"/>
   </div>
       <!-- 底部选择城市框 -->
@@ -220,7 +220,7 @@ watch: {
     .buttons{
         margin: 20px 0;
 }
-.container {
+.containeraaa {
   margin: 0 auto;
   padding: 20px 0;
 }

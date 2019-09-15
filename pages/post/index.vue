@@ -1,6 +1,6 @@
 <template>
 
-    <el-row type="flex" justify="space-between" class="container">
+    <el-row type="flex" justify="space-between" class="containeraa">
         <div class="left">
             <Cities/>
             <!-- <RecommendedCity/> -->
@@ -27,8 +27,8 @@ export default {
 };
 </script>  
 
-<style scopd lang="less">
-    .container{
+<style lang="less">
+    .containeraa{
         width:1000px;
         margin:0 auto
     }

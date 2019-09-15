@@ -1,5 +1,5 @@
 <template>
-  <div class="create">
+  <div class="createhhh">
     <!-- 左右分栏布局 -->
     <el-row :gutter="20">
       <!-- 左边编辑页面 -->
@@ -30,7 +30,7 @@ export default {
 }
 </script>
 <style scoped>
-.create{
+.createhhh{
     width: 1000px;
     margin: 0 auto;
     padding: 20px 0;
