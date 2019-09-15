@@ -20,7 +20,6 @@ export default {
     data(){
         return{
 
-
         }
     },
     // 组件注册

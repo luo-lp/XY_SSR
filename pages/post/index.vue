@@ -1,43 +1,59 @@
 <template>
+  <div style="padding:50px;">
+    <h2>组件递归</h2>
 
-    <el-row type="flex" justify="space-between" class="container">
-        <div class="left">
-            <Cities/>
-            <!-- <RecommendedCity/> -->
-        </div>
-        <div class="right">
-            <SearchCity/>
-            <Strategy/>
-        </div>
-    </el-row>
+    <Item :data="list"/>
 
+  </div>
 </template>
 
 <script>
-import Cities from "@/components/post/cities";
-import SearchCity from "@/components/post/searchCity";
-import Strategy  from "@/components/post/strategy";
-
+import Item from "@/components/post/item";
 export default {
-  components: {
-    Cities,
-    SearchCity,
-    Strategy,
-  }
-};
-</script>  
+  data(){
+    return {
+      list: [
+        {
+          title: "衣服",
+          children: [
+            {
+              title: "男装",
+              children: [
+                {title: "秋裤"},
+                {title: "西装", children: [
+                  {title: "领带"},
+                  {title: "皮带"},
+                ]}
+              ]
+            },
+            {
+              title: "女装",
+              children: [
+                {title: "裙子"},
+                {title: "比基尼"}
+              ]
+            }
+          ]
+        },
 
-<style scopd lang="less">
-    .container{
-        width:1000px;
-        margin:0 auto
+        {
+          title: "电器",
+          children: [
+            {title: "冰箱"},
+            {title: "空调"},
+            {title: "游戏机"}
+          ]
+        }
+      ]
     }
-    .left{
-        width:260px
-    }
-    .right{
-        width:700px;
-    }
-  
-  
+  },
+
+  components: {
+    Item
+  }
+}
+</script>
+
+<style>
+
 </style>

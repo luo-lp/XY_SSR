@@ -1,8 +1,8 @@
 <template>
      <div class="draft">
-    <p>草稿箱({{caogao.length}})</p>
+    <p>草稿箱({{$store.state.draft.createpost.draftcontent.length}})</p>
     <div
-    v-for="(item,index) in caogao " :key="index"
+    v-for="(item,index) in $store.state.draft.createpost.draftcontent " :key="index"
     class="lishi"
     >
     <span
@@ -24,18 +24,15 @@ export default {
     methods: {
         /* 编辑草稿   */
         draftchange(hh){
-          this.input=hh.title,
-            // 选中的游玩城市
-            this.playCity=hh.cityName,
-            // 后台给你的城市列表数据
-            this.$refs.vueEditor.editor.root.innerHTML=hh.content
+         this.$store.commit('draft/changedraft',hh)
         }
     },
     mounted(){
-        // 从本地获取数据
-            let str = localStorage.getItem('posts') || "[]";
-            let arr = JSON.parse(str);
-            this.caogao=arr
+    // 从vuex仓库获取数据
+    this.caogao=this.$store.state.draft.createpost.draftcontent
+    console.log(this.caogao,111);
+     
+
     }
 
 }
