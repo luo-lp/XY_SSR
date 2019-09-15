@@ -86,7 +86,7 @@
             <el-col>
               <div class="scenic-box">
                 <a class="scenic"
-                   @click="sceniceChoose=''"
+                   @click="scenicChoose=''"
                    :class="{active:scenicChoose === ''}"
                    href="javascript:void(0)">全部</a>
                 <a v-for="item in scenicList"
@@ -233,7 +233,9 @@ export default {
   mounted () {
     /* 判断是否为 query有无设置city = 74 */
     if (!this.$route.query || this.$route.query.city !== 74) {
-      this.$router.replace('/hotel?city=74')
+      this.$router.push('/hotel?city=74').catch(err => {
+        console.dir(err)
+      })
     }
     this.$axios({
       url: '/cities',
