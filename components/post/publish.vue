@@ -6,7 +6,7 @@
       <el-input v-model="input" placeholder="请输入内容" class="titlinput"></el-input>
       <!-- 富文本框 -->
    <div id="app" class="container">
-       <VueEditor :config="config" ref="vueEditor" @blur="onEditorBlur($event)"/>
+       <VueEditor :config="config" ref="vueEditor" />
   </div>
       <!-- 底部选择城市框 -->
       <span>选择城市：</span> 
@@ -79,7 +79,6 @@ export default {
           uploadError(){},
           showProgress: true
         },
-         
 
         uploadVideo: {
           //url: "http://157.122.54.189:9095/upload",
@@ -102,10 +101,6 @@ export default {
     VueEditor
   },
     methods: {
-      onEditorBlur(hh){
-           console.log(111,hh);
-            console.log(222,this.$refs.vueEditor.editor.root.innerHTML);  
-         },
     // 搜索建议
        async queryDestSearch(value,cb){
          this.citydata=[]
@@ -173,35 +168,29 @@ export default {
         // 保存草稿
         draft(){
           let time= moment(new Date()).format(`YYYY-MM-DD`);
-          let data={
+          let data=[{
             title:this.input,
             cityName:this.playCity,
             content:this.$refs.vueEditor.editor.root.innerHTML,
             time
-          }
-          // 存储草稿内容
-          this.$store.commit('draft/setdraftcontent',data)
+          }]
+          // 从本地获取数据
+            let str = localStorage.getItem('posts') || "[]";
+            let arr = JSON.parse(str);
+            if (arr.length!=0){
+        this.caogao.push(data[0])
+        localStorage.setItem('posts',JSON.stringify(this.caogao))
+            }else{
+        this.caogao=data
+        localStorage.setItem('posts',JSON.stringify(this.caogao))
+            }
+            console.log(this.caogao);
         },
 },
 mounted(){
-  setTimeout(() => {
-    this.$store.commit('draft/deleldraftcenter') 
-  }, 22);
- 
   // 文本框设置样式
 this.$refs.vueEditor.editor.root.style='min-height:400px;max-height:400px;overflow-y:auto;'
-},
-watch: {
-    // 如果 `question` 发生改变，这个函数就会运行
-    '$store.state.draft.createpost.draftcenter.newtime':function () {
-      let hh=this.$store.state.draft.createpost.draftcenter
-            this.input=hh.title,
-            // 选中的游玩城市
-            this.playCity=hh.cityName,
-            // 后台给你的城市列表数据
-            this.$refs.vueEditor.editor.root.innerHTML=hh.content
-    }
-  },
+}
 }
 </script>
 

@@ -12,7 +12,6 @@ export const state = () => {
     }
 }
 
-
 export const mutations = {
     // 设置用户信息,mutations下的方法第一个参数固定是state
     // data参数不是必须的，是调用方法时候传入的参数

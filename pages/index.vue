@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="containerr">
     <!-- 轮播图组件:el-carousel -->
     <!-- arrow: 左右切换的箭头总是显示的 -->
     <el-carousel 
@@ -124,7 +124,7 @@ export default {
 
 
 <style scoped lang="less">
-.container{
+.containerr{
     min-width:1000px;
     margin:0 auto;
     position:relative;
