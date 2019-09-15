@@ -1,7 +1,5 @@
 <template>
 <div class="publish">
-<el-row :gutter="20">
-  <el-col :span="16">
      <!-- 头部 -->
       <h2>发表新攻略</h2>
       <p class="wenzi">分享你的个人游记，让更多人看到哦！</p>
@@ -10,7 +8,7 @@
    <div id="app" class="container">
        <VueEditor :config="config" ref="vueEditor" />
   </div>
-      <!-- 底部城市框 -->
+      <!-- 底部选择城市框 -->
       <span>选择城市：</span> 
        <el-autocomplete
       class="inline-input"
@@ -26,25 +24,8 @@
      <el-button type="success" round @click="tijiao">发布</el-button>
     <el-button type="primary" @click="draft" round>保存到草稿</el-button>
     </div>
-  </el-col>
-  <el-col :span="8"  >
-   <div class="draft">
-    <p>草稿箱({{caogao.length}})</p>
-    <div
-    v-for="(item,index) in caogao " :key="index"
-    class="lishi"
-    >
-    <span
-     @click="draftchange(item)" type="text">{{item.title}} <i class="el-icon-edit"></i>
-     </span>
-     <p>{{item.time}}</p>
-    </div>
-   </div>
-   </el-col>
-</el-row>
   </div>
 </template>
-
 <script>
 // 需要单独引入样式
 import "quill/dist/quill.snow.css"
@@ -66,7 +47,6 @@ export default {
             citydata:[],
             // 草稿箱数组
             caogao:[],
-            
       config: {
         modules: { 
           // 工具栏
@@ -108,7 +88,6 @@ export default {
             return true
           },
           uploadProgress(res){
-
           },
           uploadSuccess(res, insert){
             insert("http://localhost:1337" + res.data[0].url)
@@ -136,7 +115,6 @@ export default {
                     name: value
                 }
             })
-            console.log(111,hh.data.data);
              // 给数组里面的每个对象元素添加一个value属性进去，并赋值给建议城市，并返回新的数组，
             hh.data.data.map((item,index)=>{
               this.citydata.push(
@@ -146,14 +124,12 @@ export default {
             //   返回建议城市
               cb(this.citydata)
            }
-           
         },
       // 游玩城市下拉选择时触发
         handleDestSelect(item) {
             // 把选中的城市id设置给this.playCityid
             this.playCityid = item.id;
         },
-
       // 游玩城市输入框失去焦点时候触发
       handlDestBlur(){
         //   如果失焦的时候的默认值
@@ -174,7 +150,7 @@ export default {
             content:this.$refs.vueEditor.editor.root.innerHTML
           }
         })
-        // 返回新增成功时
+        // 新增成功时提示框
         if (hh.status===200){
           this.$message({
           showClose: true,
@@ -189,7 +165,6 @@ export default {
             this.$refs.vueEditor.editor.root.innerHTML=''
         }
         },
-
         // 保存草稿
         draft(){
           let time= moment(new Date()).format(`YYYY-MM-DD`);
@@ -211,30 +186,16 @@ export default {
             }
             console.log(this.caogao);
         },
-
-      /* 编辑草稿   */
-        draftchange(hh){
-          this.input=hh.title,
-            // 选中的游玩城市
-            this.playCity=hh.cityName,
-            // 后台给你的城市列表数据
-            this.$refs.vueEditor.editor.root.innerHTML=hh.content
-        }
 },
 mounted(){
   // 文本框设置样式
 this.$refs.vueEditor.editor.root.style='min-height:400px;max-height:400px;overflow-y:auto;'
-// 从本地获取数据
-            let str = localStorage.getItem('posts') || "[]";
-            let arr = JSON.parse(str);
-            this.caogao=arr
 }
 }
 </script>
 
 <style lang="less" scoped>
 .publish{
-    width: 1000px;
     h2{
     font-weight: 400;
     font-size: 22px;
@@ -251,26 +212,7 @@ this.$refs.vueEditor.editor.root.style='min-height:400px;max-height:400px;overfl
 .container {
   margin: 0 auto;
   padding: 20px 0;
-  .hh {
-    min-height: 400px;
-    max-height: 400px;
-    overflow-y: auto;
-  }
-  
 }
 }
-.draft{
-    border: 1px solid #ddd;
-    padding: 10px;
-    width: 200px;
-    margin-left: 10px;
-  .lishi{
-  padding: 5px 0px;
-  span:hover{
-    color: aqua;
-    cursor:pointer;
-  }
-}
-  }
 
 </style>
