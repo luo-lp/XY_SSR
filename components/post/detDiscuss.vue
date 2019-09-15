@@ -37,7 +37,7 @@
       </el-col>
     </el-row>
     <Item v-on:follow="followId" :data="disList" />
-    <el-pagination
+    <el-pagination v-if="!disList"
       @current-change="currentChange"
       @size-change="handleSizeChange"
       :page-sizes="[2, 4, 6, 8]"
