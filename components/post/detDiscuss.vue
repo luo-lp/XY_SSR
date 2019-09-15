@@ -152,6 +152,13 @@ export default {
     },
     // 点击提交发送请求
     getDiscuss() {
+      if(!this.disForm.content){
+        this.$message({
+          message: '提交内容不能为空',
+          type: 'warning'
+        })
+        return
+      }
       // 图片
       this.content.pics = this.pics;
       // 内容

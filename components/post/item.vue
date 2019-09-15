@@ -2,23 +2,24 @@
   <div>
     <div class="digui-item">
       <item :data="data.parent" v-if="data.parent" />
-    
-      <span v-if="data.account">{{data.account.nickname}}</span>
-      <span >{{data.updated_at|getMoment}}</span>
-      <span>{{data.level}}</span>
+      <div class="top1">
+        <span v-if="data.account">{{data.account.nickname}}</span>
+        <span>{{data.updated_at|getMoment}}</span>
+        <span style="float:right">{{data.level}}</span>
+        <p>{{data.content}}</p>
+      </div>
       <div>
-          <img v-for="(item1, index) in data.pics" :key="index" v-if="item1" :src="`${$axios.defaults.baseURL}${item1.url}`" class="pinglunImg" />
+        <img
+          v-for="(item1, index) in data.pics"
+          :key="index"
+          v-if="item1"
+          :src="`${$axios.defaults.baseURL}${item1.url}`"
+          class="pinglunImg"
+        />
       </div>
-      <div style="overflow:hidden">
-        <a href="javascript:;" style="float:right" @click="reply(data)">回复</a>
-      </div>
-      <!-- <div>
-
-        
-        
-      </div>-->
-
-      <!-- <span>{{data.account.created_at}}</span> -->
+      <div class="show">
+          <a href="javascript:;" style="float:right" @click="reply(item)">回复</a>
+        </div>
     </div>
   </div>
 </template>
@@ -49,16 +50,43 @@ export default {
 
 <style lang="less" scope>
 .digui-item {
-  border: 1px solid #666;
+  border: 1px solid #dddddd;
   padding: 10px;
+  background-color: #f9f9f9;
   img {
     width: 16px;
   }
   .pics {
     width: 20%;
   }
-  .pinglunImg{
+  .pinglunImg {
     width: 20%;
+  }
+  
+}
+.show {
+  height: 20px;
+  a {
+    display: none;
+    float: right;
+  }
+  &:hover {
+    a {
+      display: block;
+    }
+  }
+}
+.digui-item{
+  &:hover {
+    a {
+      display: block;
+    }
+  }
+}
+.top1 {
+  margin-top: 5px;
+  p{
+    padding-top:25px;
   }
 }
 </style>
