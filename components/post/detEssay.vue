@@ -4,7 +4,7 @@
     <h1 v-html="detEssayData.title"></h1>
     <!-- 渲染时间与阅读量 -->
     <p class="strategyAndReadNumber">
-      <span>阅读：{{ detEssayData.watch }}</span>
+      <span>阅读：{{ detEssayData.watch?detEssayData.watch:0 }}</span>
       <span>攻略：{{ detEssayData.created_at|formatTime }}</span>
     </p>
     <!-- 渲染内容 -->
@@ -76,7 +76,7 @@ export default {
   }
   p {
     >img {
-      width: 56px;
+      max-width: 100%;
       margin: 20px 0;
     }
     a {

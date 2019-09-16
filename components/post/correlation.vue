@@ -11,7 +11,7 @@
         </el-col>
         <el-col :span="14">
           <div class="aside">{{ item.title }}</div>
-          <span>{{ item.updated_at }}阅读:{{item.watch}}</span>
+          <span>{{ item.updated_at }}阅读:{{item.watch?item.watch:0}}</span>
         </el-col>
       </nuxt-link>
     </div>
