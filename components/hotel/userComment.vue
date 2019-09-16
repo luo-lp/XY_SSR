@@ -2,14 +2,14 @@
   <div class="userComment">
     <h3>0条真实用户评论</h3>
     <el-row class="allRates" type="flex" justify>
-      <el-col class="comments" :span="5">
+      <el-col class="comments" :span="4">
         <span>总评论{{$store.state.hotelDetail.hotelData[0].all_remarks}}</span>
         <br />
         <span>好评数:{{$store.state.hotelDetail.hotelData[0].good_remarks}}</span>
         <br />
         <span>差评数:{{$store.state.hotelDetail.hotelData[0].bad_remarks}}</span>
       </el-col>
-      <el-col :span="19">
+      <el-col :span="20">
         <el-row type="flex" justify>
           <el-col :span="6" v-if="scores">
             <el-rate
@@ -22,38 +22,15 @@
             ></el-rate>
           </el-col>
           <el-col :span="6">
-            <el-progress
-              class="env"
-              type="circle"
-              :percentage="scores.environment*10"
-              color="#ff9900"
-              :stroke-width="4"
-              status="text"
-              :width="80"
-            >环境<br>{{scores.environment}}</el-progress>
+            <el-progress class="env" color="#ff9900" :width="60" :percentage="scores.environment*10" :format="format"></el-progress>
           </el-col>
           <el-col :span="6">
-            <el-progress
-              class="pro"
-              type="circle"
-              :percentage="scores.product*10"
-              color="#ff9900"
-              :stroke-width="4"
-              status="text"
-              :width="80"
-            >产品<br>{{scores.product}}</el-progress>
+            <el-progress class="pro" color="#ff9900" :width="60" :percentage="scores.product*10" :format="format1"></el-progress>
           </el-col>
           <el-col :span="6">
-            <el-progress
-              class="ser"
-              type="circle"
-              :percentage="scores.service*10"
-              color="#ff9900"
-              :stroke-width="4"
-              status="text"
-              :width="80"
-            >服务<br>{{scores.service}}</el-progress>
+            <el-progress class="ser" color="#ff9900" :width="60" :percentage="scores.service*10" :format="format2"></el-progress>
           </el-col>
+          
         </el-row>
       </el-col>
     </el-row>
@@ -67,19 +44,32 @@ export default {
       scores: {
         environment: 0,
         product: 0,
-        service: 0
+        service: 0,
+        a:null
       }
     };
   },
 
+  methods:{
+     format(percentage) {
+        return percentage === 100 ? `环境:10`:'环境:'+this.scores.environment;
+      },
+     format1(percentage) {
+        return percentage === 100 ? `产品:10`:'产品:'+this.scores.product;
+      },
+     format2(percentage) {
+        return percentage === 100 ? `服务:10`:'服务:'+this.scores.service;
+
+      }
+  },
+  
   mounted() {
     setTimeout(() => {
       this.scores = this.$store.state.hotelDetail.hotelData[0].scores;
-      console.log(this.$store.state.hotelDetail.hotelData[0].scores,1111);
-      console.log(this.scores,222);
+      // console.log(this.$store.state.hotelDetail,1111);
+      // this.a=this.$store.state.hotelDetail
+      // console.log(this.a,222);
 
-      
-      
     }, 100);
   }
   
@@ -103,10 +93,14 @@ export default {
       .env,
       .pro,
       .ser {
-        width: 80px;
-        height: 80px;
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
       }
     }
   }
+}
+/deep/.el-progress-bar{
+  margin-right: 0;
 }
 </style>
