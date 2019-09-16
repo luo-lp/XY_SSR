@@ -69,12 +69,12 @@ export default {
   }
   .bottom {
     padding: 15px 0;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #dddddd;
   }
   h3 {
     font-weight: 400;
     padding: 15px 0;
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #dddddd;
   }
   div {
     height: 80px;
