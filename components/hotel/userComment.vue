@@ -52,13 +52,16 @@ export default {
 
   methods:{
      format(percentage) {
-        return percentage === 100 ? `环境:10`:'环境:'+this.scores.environment;
+        return percentage === 100 ? `环境:10`:"暂无数据";
+        // return percentage === 100 ? `环境:10`:'环境:'+this.scores.environment;
       },
      format1(percentage) {
-        return percentage === 100 ? `产品:10`:'产品:'+this.scores.product;
+        return percentage === 100 ? `产品:10`:"暂无数据";
+        // return percentage === 100 ? `产品:10`:'产品:'+this.scores.product;
       },
      format2(percentage) {
-        return percentage === 100 ? `服务:10`:'服务:'+this.scores.service;
+        return percentage === 100 ? `服务:10`:"暂无数据";
+        // return percentage === 100 ? `服务:10`:'服务:'+this.scores.service;
 
       }
   },
@@ -95,7 +98,7 @@ export default {
       .ser {
         width: 60px;
         height: 60px;
-        line-height: 60px;
+        line-height: 80px;
       }
     }
   }

@@ -122,6 +122,8 @@ export default {
   mounted() {
     this.$axios({
       url: "/hotels",
+      // 配置请求的基准URL地址
+      // baseURL: 'http://157.122.54.189:9095',
       params: {
         id:this.$route.query.id   
       } 
@@ -129,7 +131,7 @@ export default {
       this.hotelDetail = res.data.data;
       this.products = res.data.data[0].products;
       this.level = res.data.data[0].hotellevel.level; // 等级,皇冠
-      console.log(res.data,8888)
+      console.log(res.data.data,8888)
 
       // 酒店详情数据存储到store
       this.$store.commit("hotelDetail/setHotelData", this.hotelDetail);

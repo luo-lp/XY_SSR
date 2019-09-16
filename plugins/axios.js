@@ -24,15 +24,15 @@ export default ({ $axios, redirect }) => {
   })
 
 
-  $axios.interceptors.request.use(
-    config => {
-      if (config.url.startsWith('/hotels?&')) {
-        config.baseURL = 'http://157.122.54.189:9095'
-      }
-      return config
-    },
-    err => {
-      return Promise.reject(err)
-    }
-  )
+  // $axios.interceptors.request.use(
+  //   config => {
+  //     if (config.url.startsWith('/hotels?&')) {
+  //       config.baseURL = 'http://157.122.54.189:9095'
+  //     }
+  //     return config
+  //   },
+  //   err => {
+  //     return Promise.reject(err)
+  //   }
+  // )
 }
