@@ -16,7 +16,7 @@ export const state=()=>{
         }
 }
 export const mutations={
-    // 文本内容传值
+    // 文本内容传值 
     settextcontent(state,text){
         state.createpost.textcontent=text
     },
