@@ -13,7 +13,9 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1168872_ehvuah8v57g.css'}
+      { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1168872_ehvuah8v57g.css'},
+      { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1408435_8zol7rgaw2d.css'},
+      { rel: 'stylesheet', type: 'text/css', href: '//at.alicdn.com/t/font_1408435_6yiqx3t0yx6.css'}
     ]
   },
   /*
