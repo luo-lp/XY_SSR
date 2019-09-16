@@ -29,15 +29,12 @@
             >
               <i class="el-icon-plus"></i>
             </el-upload>
-            <!-- <el-dialog :visible.sync="dialogVisible" size="tiny">
-                    <img width="100%" :src="dialogImageUrl" alt />
-            </el-dialog>-->
           </el-form-item>
         </el-form>
       </el-col>
     </el-row>
     <Item v-on:follow="followId" :data="disList" />
-    <el-pagination v-if="!disList"
+    <el-pagination
       @current-change="currentChange"
       @size-change="handleSizeChange"
       :page-sizes="[2, 4, 6, 8]"

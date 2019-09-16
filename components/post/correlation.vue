@@ -1,17 +1,19 @@
 <template>
   <div class="det_right">
     <h3>相关攻略</h3>
-    
+
     <div v-for="(item, index) in recHtml" :key="index" class="bottom">
       <nuxt-link v-if="item" :to="`/post/detail?id=${item.id}`" @click="linkTo(item.id)">
-      <el-col :span="10">
-        <img :src="item.images[0]" alt />
-      </el-col>
-      <el-col :span="14">
-        <p>{{ item.title }}</p>
-        <span>{{ item.updated_at }}阅读:{{item.watch}}</span>
-      </el-col>
-    </nuxt-link>
+        <el-col :span="10">
+          <div class="Dimg">
+            <img :src="item.images[0]" alt />
+          </div>
+        </el-col>
+        <el-col :span="14">
+          <div class="aside">{{ item.title }}</div>
+          <span>{{ item.updated_at }}阅读:{{item.watch}}</span>
+        </el-col>
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -33,18 +35,11 @@ export default {
     getRelatedArticles() {
       this.$axios({
         url: "/posts/recommend"
-        // url: "http://157.122.54.189:9095/posts/recommend",
-        // params: {
-        //   // id: "4"
-        // }
       }).then(res => {
         res.data.data.forEach(v => {
-          // console.log(new Date(v.updated_at));
           v.updated_at = Moment(v.updated_at).format("YYYY-MM-DD");
         });
         this.recHtml = res.data.data;
-        console.log(res, 999999);
-        // console.dir(Moment);
       });
     }
   },
@@ -58,6 +53,20 @@ export default {
 <style lang="less" scoped>
 .det_right {
   padding-left: 15px;
+  .Dimg{
+    width: 100%;
+    background-color: #dddddd;
+  }
+  .aside {
+    padding-left: 10%;
+    line-height: 1.4em;
+    height: 2.8em;
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
   .bottom {
     padding: 15px 0;
     border-bottom: 1px solid #666;
@@ -77,7 +86,7 @@ export default {
     img {
       height: 100%;
       width: 100%;
-      margin-right: 5px;
+      
     }
     span {
       position: absolute;

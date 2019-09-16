@@ -3,7 +3,9 @@
     <el-row class="good" type="flex" justify="center">
       <span>
         <i class="iconfont iconiconfontpinglun"></i>
-        评论({{goods.CommentNumber}})
+        <!-- 评论({{goods.CommentNumber}}) -->
+        {{ $store.state.post.dianzanData }}
+        
       </span>
       <span @click="collect">
         <i class="iconfont iconshoucang4"></i>
@@ -15,7 +17,8 @@
       </span>
       <span @click="clickLike">
         <i class="iconfont icondianzan1"></i>
-        点赞({{goods.like}})
+        <!-- 点赞({{goods.like}}) -->
+        {{ $store.state.post.pinglunData }}
       </span>
     </el-row>
   </div>
@@ -66,9 +69,11 @@ export default {
       }).then(res => {
         // 评论人数
         this.goods.CommentNumber = res.data.data[0].comments.length;
+        console.log(this.goods.CommentNumber);
+        
         this.goods.like = !res.data.data[0].like ? 0 : res.data.data[0].like;
       });
-    }
+    },
   },
   mounted() {
     this.getDetailList();

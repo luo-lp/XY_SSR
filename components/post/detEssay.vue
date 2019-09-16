@@ -20,6 +20,8 @@ export default {
     return {
       // 文章总数据
       detEssayData: {},
+      CommentNumber:'',
+      like:''
     };
   },
   methods: {
@@ -36,10 +38,15 @@ export default {
         this.comments = res.data.data[0].comments;
         // 评论人数
         this.CommentNumber = res.data.data[0].comments.length;
+        this.$store.commit("post/setdianzanData", this.CommentNumber)
         this.like = !res.data.data[0].like ? 0 : res.data.data[0].like;
+        this.$store.commit("post/pinglunData", this.like)
         // console.log(CommentNumber);
         // console.log(res, "123");
         // this.handleClose();
+
+        this.$store.commit("post/setInfoData", null);
+        this.$store.commit("post/setnameData", null);
       });
     }
   },
@@ -52,7 +59,7 @@ export default {
     }
   },
   watch: {
-    $route(){
+    $route() {
       this.getDetailList();
     }
   }
@@ -68,12 +75,12 @@ export default {
     margin-bottom: 25px;
   }
   p {
-    img {
+    >img {
       width: 56px;
       margin: 20px 0;
     }
-    a{
-      img{
+    a {
+      img {
         width: 100%;
       }
     }
@@ -84,13 +91,13 @@ export default {
       }
     }
   }
-  span{
+  span {
     margin-bottom: 20px;
   }
-  .strategyAndReadNumber{
+  .strategyAndReadNumber {
     overflow: hidden;
     padding-bottom: 25px;
-    span{
+    span {
       float: right;
       margin-left: 25px;
       color: #939393;
