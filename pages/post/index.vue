@@ -1,12 +1,12 @@
 <template>
 
-    <el-row type="flex" justify="space-between" class="containeraa">
+    <el-row type="flex" justify="space-between" class="container_post_index">
         <div class="left">
             <Cities/>
             <!-- <RecommendedCity/> -->
         </div>
         <div class="right">
-            <SearchCity/>
+            <!-- <SearchCity/> -->
             <Strategy/>
         </div>
     </el-row>
@@ -15,20 +15,20 @@
 
 <script>
 import Cities from "@/components/post/cities";
-import SearchCity from "@/components/post/searchCity";
+// import SearchCity from "@/components/post/searchCity";
 import Strategy  from "@/components/post/strategy";
 
 export default {
   components: {
     Cities,
-    SearchCity,
+    // SearchCity,
     Strategy,
   }
 };
 </script>  
 
 <style lang="less">
-    .containeraa{
+    .container_post_index{
         width:1000px;
         margin:0 auto
     }

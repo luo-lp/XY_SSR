@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="cities">
 
     <div @mouseenter="isShow=true" @mouseleave="isShow=false">
       <!-- tab左侧 -->
@@ -13,9 +13,9 @@
       <div class="menuRight" v-show="count === index" v-for="(item,index) in options" :key="index"
       v-if="isShow"
       >
-        <div class="menuRightLi" v-for="(item,index) in item.children" :key="index">
+        <div class="menuRightLi" v-for="(item,index) in item.children" :key="index" @click="citiesClick(item.city)">
           <span>{{index+1}}</span>
-          <nuxt-link to="#" class="city">{{item.city}}</nuxt-link>
+          <nuxt-link to="#" class="city" >{{item.city}}</nuxt-link>
           <nuxt-link to="#" class="cityDetail">{{item.desc}}</nuxt-link>
         </div>
       </div>
@@ -38,11 +38,19 @@ export default {
     return {
       isShow: false,
       options: [],
-      count: 0
+      count: 0,
+      cityList:[]
     };
   },
 
-  methods: {},
+  methods: {
+    citiesClick(city){
+      console.log(city)
+      console.log(this.$store)
+      // this.$store.state
+      this.$store.commit('cities/setInfoCities',city)
+    }
+  },
   mounted() {
     this.$axios({
       url: "/posts/cities"
@@ -55,7 +63,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.container {
+.cities {
   // width: 1000px;
   // border-bottom: 1px #ddd solid;
   // margin:0 auto;
