@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="searchCity">
         <div class="search" >
             <!-- <el-input style="width:100%" placeholder="请输入想去的地方，比如:'广州'" v-model="searchCities" class="input-with-select">
                 <el-button slot="append" icon="el-icon-search"></el-button>
@@ -9,9 +9,7 @@
         </div>
         <div class="searchRecommened">
             <span>推荐:</span>
-            <nuxt-link to='#'>广州</nuxt-link>
-            <nuxt-link to='#'>上海</nuxt-link>
-            <nuxt-link to='#'>北京</nuxt-link>
+            <a style="margin-right:5px" to='#' @click="gzClick(item)" v-for="(item,index) in cityS " :key="index">{{item}}</a>
         </div>
     </div>
 </template>
@@ -21,13 +19,25 @@ export default {
     data(){
         return{
             searchCities:'',
+            cityS:[
+                '广州',
+                '上海',
+                '北京'
+            ],
+            city:''
+        }
+    },
+    methods:{
+        gzClick(city){
+            console.log(city);
+            // this.$store.state.
         }
     }
 }
 </script>
 
 <style scoped lang="less">
-    .container{
+    .searchCity{
         width:700px;
         overflow: hidden;
         clear:both;
@@ -58,6 +68,9 @@ export default {
         color:#666;
         padding:10px 0;
     }
+    // .searchRecommened nuxt-link:hover{
+    //     text-decoration: normal;
+    // }
     .input-with-select{
         border:3px solid orange;
         width:700px;

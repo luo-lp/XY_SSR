@@ -74,6 +74,9 @@ export default {
     padding-bottom: 25px;
     margin-bottom: 25px;
   }
+  h2{
+    margin: 10px 0;
+  }
   p {
     >img {
       max-width: 100%;
@@ -88,6 +91,7 @@ export default {
       img {
         display: block;
         width: 100%;
+        margin: 10px 0;
       }
     }
   }

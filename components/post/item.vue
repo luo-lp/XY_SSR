@@ -18,7 +18,7 @@
         />
       </div>
       <div class="show">
-          <a href="javascript:;" style="float:right" @click="reply(item)">回复</a>
+          <a href="javascript:;" style="float:right" @click="reply(data)">回复</a>
         </div>
     </div>
   </div>
@@ -32,7 +32,7 @@ export default {
   props: ["data"],
   methods: {
     reply(data) {
-      // console.log(id);
+      // console.log(data);
       this.$store.commit("post/setInfoData", data.id);
       this.$store.commit("post/setnameData", data.account.nickname);
     }

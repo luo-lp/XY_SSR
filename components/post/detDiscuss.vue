@@ -2,12 +2,13 @@
   <div>
     <el-row type="flex" justify class="disform">
       <el-col :span="24">
-        <h3>评论</h3>
+        <h3 style="margin-bottom:10px">评论</h3>
         <el-tag
           v-if="$store.state.post.nameData"
           closable
           @close="handleClose"
           type="info"
+          class="mart"
         >@{{$store.state.post.nameData}}</el-tag>
         <el-form ref="form" :model="disForm" label-width>
           <el-form-item>
@@ -189,6 +190,11 @@ export default {
           this.$store.commit("post/setnameData", null);
           this.$store.commit("post/setInfoData", null);
           this.$refs.upload.clearFiles();
+          this.$message({
+          showClose: true,
+          message: '提交成功',
+          type: 'success'
+        });
         }
       });
     },
@@ -228,4 +234,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.mart{
+  margin-bottom: 10px;
+}
 </style>

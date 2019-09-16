@@ -4,21 +4,21 @@
       <span>
         <i class="iconfont iconiconfontpinglun"></i>
         <!-- 评论({{goods.CommentNumber}}) -->
-        {{ $store.state.post.dianzanData }}
+        <em>({{ $store.state.post.dianzanData }})</em>
         
       </span>
       <span @click="collect">
         <i class="iconfont iconshoucang4"></i>
-        收藏
+        <em>收藏</em>
       </span>
       <span>
         <i class="iconfont iconfenxiang"></i>
-        分享
+        <em>分享</em>
       </span>
       <span @click="clickLike">
         <i class="iconfont icondianzan1"></i>
         <!-- 点赞({{goods.like}}) -->
-        {{ $store.state.post.pinglunData }}
+        <em>({{ $store.state.post.pinglunData }})</em>
       </span>
     </el-row>
   </div>
@@ -90,6 +90,11 @@ export default {
     i {
       font-size: 30px;
       display: block;
+      margin-bottom: 5px;
+      color: orange;
+    }
+    em{
+      color: #999;
     }
   }
 }
