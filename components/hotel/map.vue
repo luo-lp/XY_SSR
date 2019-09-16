@@ -49,7 +49,6 @@ export default {
           zoom: 12, // 地图缩放级别
           center: [this.longitude, this.latitude] // 中心点坐标
         });
-        console.log(map)
 
         // 所有坐标
         let arr = [];

@@ -61,7 +61,6 @@
 </template>
 
 <script>
-import { setTimeout } from "timers";
 export default {
   data() {
     return {
@@ -76,7 +75,12 @@ export default {
   mounted() {
     setTimeout(() => {
       this.scores = this.$store.state.hotelDetail.hotelData[0].scores;
-    }, 10);
+      console.log(this.$store.state.hotelDetail.hotelData[0].scores,1111);
+      console.log(this.scores,222);
+
+      
+      
+    }, 100);
   }
   
 };

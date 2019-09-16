@@ -42,7 +42,7 @@
     </el-row>
     <!-- 价格来源 -->
     <div class="hotelPrice">
-      <a href="http://www.baidu.com">
+      <a href="https://hotels.ctrip.com/">
         <el-table :data="products" style="width:100%">
           <el-table-column prop="name" label="价格来源" width="420"></el-table-column>
           <el-table-column prop="bestType" label="低价房型" width="420"></el-table-column>
@@ -90,7 +90,7 @@ export default {
     return {
       hotelDetail: [
         {
-          big_cate: ""
+          // big_cate: ""
         }
       ],
       level: "",
@@ -117,21 +117,19 @@ export default {
     handleClick(index) {
       this.bigSrc = this.imgSrc[index];
     }
-
-    // link () {
-    //     window.location.href = "http://www.baidu.com"
-    //   }
   },
 
   mounted() {
     this.$axios({
-      url: "/hotels/?",
-      params: this.$route.query.id // 这个id需要从链接里面取
+      url: "/hotels",
+      params: {
+        id:this.$route.query.id   
+      } 
     }).then(res => {
-      // console.log(res.data);
       this.hotelDetail = res.data.data;
       this.products = res.data.data[0].products;
       this.level = res.data.data[0].hotellevel.level; // 等级,皇冠
+      console.log(res.data,8888)
 
       // 酒店详情数据存储到store
       this.$store.commit("hotelDetail/setHotelData", this.hotelDetail);
