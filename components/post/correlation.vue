@@ -47,8 +47,8 @@ export default {
     this.getRelatedArticles();
   }
 };
+// 测试
 </script>
-
 
 <style lang="less" scoped>
 .det_right {
