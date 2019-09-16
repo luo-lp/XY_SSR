@@ -22,7 +22,7 @@ export const mutations={
     },
     // 草稿箱的内容存起来
     setdraftcontent(state,draft){
-        // 顶进去
+        // 顶进去 1
         state.createpost.draftcontent.push(draft)
     },
     changedraft(state,hh){
