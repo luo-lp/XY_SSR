@@ -12,7 +12,7 @@
         >@{{$store.state.post.nameData}}</el-tag>
         <el-form ref="form" :model="disForm" label-width>
           <el-form-item>
-            <el-input type="textarea" v-model="disForm.content" class="textArea"></el-input>
+            <el-input type="textarea" v-model="disForm.content" class="textArea" resize="none"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="getDiscuss" style="float:right;position: relative">提交</el-button>
@@ -234,6 +234,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.textArea{
+  resize: none;
+}
 .mart{
   margin-bottom: 10px;
 }
