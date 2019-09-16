@@ -2,8 +2,8 @@
   <div class="strategy">
     <div class="searchCity">
       <div class="search">
-        <input type="text" placeholder="请输入想去的地方，比如:'广州'" />
-        <i class="el-icon-search"></i>
+        <input type="text" placeholder="请输入想去的地方，比如:'广州'" v-model="cityy" />
+        <i class="el-icon-search" @click="searchCity"></i>
       </div>
       <div class="searchRecommened">
         <span>推荐:</span>
@@ -40,10 +40,8 @@
           <i class="el-icon-location-outline"></i>
           <span>{{item.cityName}}</span>
           <img
-           
             style="height:16px;width:16px;display:block"
             :src="`${$axios.defaults.baseURL}${$store.state.user.userInfo.user.defaultAvatar}`"
-            
           />
           <span class="nickName">{{$store.state.user.userInfo.user.nickname}}</span>
           <span class="el-icon-view"></span>
@@ -51,8 +49,6 @@
         </div>
         <span class="like">{{item.like?item.like:0}}赞</span>
       </div>
-
-
     </div>
 
     <el-pagination
@@ -71,6 +67,7 @@
 export default {
   data() {
     return {
+      cityy: "",
       content: [],
       pageIndex: 1,
       pageSize: 3,
@@ -86,6 +83,38 @@ export default {
     };
   },
   methods: {
+    searchCity() {
+      if (this.cityy) {
+        this.$axios({
+          url: "/posts/",
+          params: {
+            city: this.cityy
+          }
+        }).then(res => {
+          console.log(res.data.data, 222);
+          this.content = res.data.data;
+          // console.log(res.data[0].images,444)
+          this.total = res.data.data.length;
+          this.content = res.data.data.slice(0, this.pageSize);
+          this.currentChange = res.data.data;
+
+          console.log(this.$store);
+        });
+      } else {
+        this.$axios({
+          url: "/posts/"
+        }).then(res => {
+          console.log(res.data.data, 222);
+          this.content = res.data.data;
+          // console.log(res.data[0].images,444)
+          this.total = res.data.data.length;
+          this.content = res.data.data.slice(0, this.pageSize);
+          this.currentChange = res.data.data;
+
+          console.log(this.$store);
+        });
+      }
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`);
       // this.content = res.data.data.slice(0,val)
@@ -100,9 +129,10 @@ export default {
 
     gzClick(city) {
       console.log(city);
+      this.cityy = city;
       this.$axios({
         url: "/posts/",
-        params:{
+        params: {
           city
         }
       }).then(res => {
@@ -131,13 +161,12 @@ export default {
       console.log(this.$store);
     });
   },
-  watch:{
-    '$store.state.cities.infoCities'(){
-      
+  watch: {
+    "$store.state.cities.infoCities"() {
       this.$axios({
         url: "/posts/",
-        params:{
-          city:this.$store.state.cities.infoCities
+        params: {
+          city: this.$store.state.cities.infoCities
         }
       }).then(res => {
         console.log(res.data.data, 222);
@@ -155,19 +184,19 @@ export default {
 </script>
 
 <style scoped lang="less">
-.activee{
+.activee {
   float: left;
 }
-#under{
+#under {
   // background-color: red;
   line-height: 14px;
-  img{
+  img {
     margin: 0 5px;
-  height: 14px;
-  width: 14px;
+    height: 14px;
+    width: 14px;
   }
-  .nickName{
-    color:orange;
+  .nickName {
+    color: orange;
     margin-right: 5px;
   }
 }

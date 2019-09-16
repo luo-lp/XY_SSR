@@ -7,9 +7,9 @@
         <span style="color:#979797">{{item.updated_at|getMoment}}</span>
         <span style="float:right">{{item.level}}</span>
       </div>
-      <Item :data="item.parent" v-if="item.parent" />
+      <div style="padding-left:25px;"><Item :data="item.parent" v-if="item.parent" /></div>
       <div>
-        <p v-if="item.content" class="content">{{item.content}}</p>
+        <p v-if="item.content" class="content123">{{item.content}}</p>
         <img
           v-for="(item1, index) in item.pics"
           :key="index"
@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.content {
+.content123 {
   padding-left: 30px;
   padding-top: 15px;
   font-size: 14px;
